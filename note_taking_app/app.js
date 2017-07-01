@@ -5,10 +5,45 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+var session = require('express-session');
+var flash = require('connect-flash');
+var passport = require('passport');
+
+var dbUri = 'mongodb://localhost/note_app';
+
+mongoose.connect(dbUri);
+
 var index = require('./routes/index');
 var users = require('./routes/users');
+var db = mongoose.connection;
+
+db.on('error', function(err) {
+  console.log('Mongoose default connection error: ' + err);
+});
+
+var Schema = mongoose.Schema;
+
+var userDataSchema = new Schema({
+  username: {type: String, required: true},
+  email: {type: String, required: true}
+});
+
+var noteSchema = new Schema({
+  title: {type: String, required: true},
+  author: String,
+  content: String
+});
+
+var noteData = mongoose.model('noteData', noteSchema);
+var userData = mongoose.model('UserData', userDataSchema);
 
 var app = express();
+
+app.use(session({secret: 'yashladhaisstud'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
