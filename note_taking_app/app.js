@@ -22,21 +22,6 @@ db.on('error', function(err) {
   console.log('Mongoose default connection error: ' + err);
 });
 
-var Schema = mongoose.Schema;
-
-var userDataSchema = new Schema({
-  username: {type: String, required: true},
-  email: {type: String, required: true}
-});
-
-var noteSchema = new Schema({
-  title: {type: String, required: true},
-  author: String,
-  content: String
-});
-
-var noteData = mongoose.model('noteData', noteSchema);
-var userData = mongoose.model('UserData', userDataSchema);
 
 var app = express();
 
