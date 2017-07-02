@@ -1,10 +1,9 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var userData = require('../models/user.js')
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  var userData = mongoose.model('UserData');
   userData.find(function(err, doc) {
     if (err) {
       console.log('Error has occured');
@@ -36,10 +35,10 @@ router.get('/createUser', function(req, res) {
 router.post('/addUser', function(req, res) {
   var user = {
     username: req.body.username,
-    email: req.body.useremail
+    password: req.body.password,
+    email: req.body.email
   };
 
-  var userData = mongoose.model('UserData');
   var userNew = new userData(user);
   userNew.save(function(err) {
     if (err) {
