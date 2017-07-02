@@ -3,6 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="https://code.jquery.com/jquery-3.2.1.js", integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=", crossorigin="anonymous")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css", integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp", crossorigin="anonymous")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
@@ -11,12 +12,17 @@ html
     nav.navbar.navbar-inverse.navbar-fixed-top
       .container-fluid
         .navbar-header
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target="#myNavBar")
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
           a.navbar-brand(href='/') Notaek
-        ul.nav.navbar-nav.navbar-right
-          li
-            a(href='/createUser')
-              span.glyphicon.glyphicon-user  SignUp
-          li
-            a(href='/login')
-              span.glyphicon.glyphicon-log-in  Login
+        .collapse.navbar-collapse(id="myNavBar")
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='/createUser')
+                span.glyphicon.glyphicon-user  SignUp
+            li
+              a(href='/login')
+                span.glyphicon.glyphicon-log-in  Login
     block content
