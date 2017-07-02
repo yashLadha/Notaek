@@ -1,4 +1,5 @@
 var express = require('express');
+var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 var userData = require('../models/user.js')
 var router = express.Router();
@@ -21,7 +22,7 @@ router.post('/loginUser', function(req, res) {
 
   var user = {
     username: req.body.username,
-    email: req.body.useremail
+    password: req.body.password
   };
 
   console.log('User received' + user);
@@ -35,7 +36,7 @@ router.get('/createUser', function(req, res) {
 router.post('/addUser', function(req, res) {
   var user = {
     username: req.body.username,
-    password: req.body.password,
+    password: bcrypt.hashSync(req.body.password),
     email: req.body.email
   };
 

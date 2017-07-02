@@ -1,9 +1,18 @@
 extends layout
 
 block content
-  h1= title
 
-  form#formLoginUser(name='loginUser', method="post", action='/loginUser')
-    input#inputUserName(type="text", placeholder="username", name="username")
-    input#inputUserEmail(type="text", placeholder="email", name="useremail")
-    button#btnSubmit(type="submit") submit
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1= title
+
+        form(method='POST' action='/loginUser')
+          div.form-group
+            label(for='name') Name 
+            input#name.form-control(type='text', placeholder='username', name='username')
+          div.form-group
+            label(for='password') Password 
+            input#password.form-control(type='password', placeholder='password', name='password')
+          button.btn.btn-primary.btn-block(type='submit') Login
+
