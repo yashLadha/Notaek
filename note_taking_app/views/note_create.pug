@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  if (user)
+    .main.container
+      .row
+        .col-md-6.col-md-offset-3
+          h1= title
+          form(method='POST', action='/createNote')
+            div.form-group
+              label(for='title') Title
+              input#title.form-control(type='text', placeholder='Title', name='title')
+            div.form-group
+              label(for='content') Content
+              textarea#content.form-control(type='text', rows=5, placeholder='Content', name='content')
+            button.btn.btn-primary.btn-block(type='submit')  Create Note

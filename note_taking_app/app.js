@@ -19,12 +19,12 @@ mongoose.connect(dbUri);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var note = require('./routes/note_take.js');
 var db = mongoose.connection;
 
 db.on('error', function(err) {
   console.log('Mongoose default connection error: ' + err);
 });
-
 
 var app = express();
 
@@ -53,6 +53,7 @@ passport.deserializeUser(userData.deserializeUser())
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/createNote', note);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
