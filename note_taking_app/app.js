@@ -53,7 +53,7 @@ passport.deserializeUser(userData.deserializeUser())
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/createNote', note);
+app.use('/notes', note);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
