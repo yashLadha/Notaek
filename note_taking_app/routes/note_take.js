@@ -17,8 +17,6 @@ router.post('/createNote', function(req, res) {
     postTitle = req.body.title
     postContent = req.body.content
 
-    postError = true
-    
     if (postTitle) {
       noteModel.find({author: userInfo._id, title: postTitle}, function(err, note) {
         if (err)
@@ -29,9 +27,11 @@ router.post('/createNote', function(req, res) {
             if (err)
               console.log('Note is not able to save properly')
             else {
-              postError = false
               console.log('Note is saved properly')
-              res.redirect('/createNote')
+              res.redirect('/notes/createNote')
+              note.on('es-indexed', function() {
+                console.log('Document is indexed')
+              })
             }
           })
         }
@@ -43,12 +43,18 @@ router.post('/createNote', function(req, res) {
 router.get('/', function(req, res) {
   if (req.user) {
     userInfo = req.user
-    queryObj = noteModel.find({author: userInfo._id}).exec()
-    queryObj.then((results) => {
-      console.log('Results: ' + results)
-      res.render('note_index', {notes: results, user: userInfo})
-    }).catch((err) => {
-      console.log(err);
+    noteModel.search({
+      match: {
+        author: userInfo._id
+      }
+    }, {hydrate: true}, function(err, result) {
+      if(err) {
+        console.log('No data found')
+        res.redirect('/')
+      } else {
+        console.log(result.hits.hits)
+        res.render('note_index', {notes: result.hits.hits, user: userInfo})
+      }
     })
   }
   else

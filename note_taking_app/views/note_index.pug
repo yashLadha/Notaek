@@ -1,11 +1,12 @@
 extends layout
 
 block content
-  ul
-    for note in notes
-      li
-        .card
-          .card-container
-            h4= note.title
-            p #{note.content}
-      br
+  if (notes)
+    ul
+      for note in notes
+        li
+          .card
+            .card-container
+              h4= note.title
+              p #{note.content}
+        br
