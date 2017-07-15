@@ -1,20 +1,20 @@
-var express = require('express')
+var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var LocalStrategy = require('passport-local').Strategy
+var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var session = require('express-session');
-var bcrypt = require('bcrypt-nodejs')
+var bcrypt = require('bcrypt-nodejs');
 var flash = require('connect-flash');
 var passport = require('passport');
 
 var dbUri = 'mongodb://localhost/note_app';
 
-mongoose.Promise = global.Promise
+mongoose.Promise = global.Promise;
 mongoose.connect(dbUri);
 
 var index = require('./routes/index');
@@ -45,11 +45,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var userData = require('./models/user.js')
+var userData = require('./models/user.js');
 
-passport.use(new LocalStrategy(userData.authenticate()))
-passport.serializeUser(userData.serializeUser())
-passport.deserializeUser(userData.deserializeUser())
+passport.use(new LocalStrategy(userData.authenticate()));
+passport.serializeUser(userData.serializeUser());
+passport.deserializeUser(userData.deserializeUser());
 
 app.use('/', index);
 app.use('/users', users);
@@ -63,8 +63,8 @@ app.use(function(req, res, next) {
 });
 
 var isValidPassword = function(user, password) {
-  return bcrypt.compareSync(password, user.password)
-}
+    return bcrypt.compareSync(password, user.password);
+};
 
 // error handler
 app.use(function(err, req, res, next) {

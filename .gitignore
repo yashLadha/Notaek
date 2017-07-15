@@ -6,6 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 *.swp
 .tern-project
+*~
+TAGS
+.tern-project
+.tern-port
+.idea/
 
 # Runtime data
 pids
