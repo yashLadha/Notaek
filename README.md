@@ -1,9 +1,10 @@
 # express-app-note
 Note taking app - learning express
-This is a mini project to learn the concepts of express and get some familiarity __MONGO__.
+This is a mini project to learn the concepts of express and get some familiarity __MONGO__ and elasticsearch.
 
 # Requirements
 This program requires mongo-db to be preinstalled and running as a background service.
+Also Install the elastic search also for querying purpose and it should be also running
 If you haven't them try to install it from official documemntation, it will really help.
 ```sh
 sudo service mongod start
