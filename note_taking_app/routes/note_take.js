@@ -40,14 +40,12 @@ router.post('/createNote', function(req, res) {
     }
 });
 
-router.get('/async', function(req, res) {
-    console.log('Async Query initiating');
-    user = req.user;
+var findFuzzyPosts = function(text, user) {
     noteModel.search({
 	bool: {
 	    must: {
 		fuzzy: {
-		    title: "2"
+		    title: text // Text for applying fuzzy search algo
 		}
 	    },
 	    filter: {
@@ -62,9 +60,19 @@ router.get('/async', function(req, res) {
 	} else {
 	    if (result.hits.hits) {
 		console.log(result.hits.hits);
+		return result.hits.hits;
 	    }
 	}
+	return null;
     });
+};
+
+router.get('/async/:text', function(req, res) {
+    console.log('Async Query initiating');
+    user = req.user;
+    if (user) {
+	posts = findFuzzyPosts(req.params.text, user);
+    }
 });
 
 router.get('/', function(req, res) {

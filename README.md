@@ -5,6 +5,8 @@ This is a mini project to learn the concepts of express and get some familiarity
 # Requirements
 This program requires mongo-db to be preinstalled and running as a background service.
 Also Install the elastic search also for querying purpose and it should be also running
+in background as mongoosastic use it for querying operation purposes.
+
 If you haven't them try to install it from official documemntation, it will really help.
 ```sh
 sudo service mongod start
