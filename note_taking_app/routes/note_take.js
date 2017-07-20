@@ -68,9 +68,9 @@ var findFuzzyPosts = function(text, user) {
 };
 
 router.get('/async/:text', function(req, res) {
-    console.log('Async Query initiating');
     user = req.user;
     if (user) {
+        console.log('Request received: ' + req.params.text);
 	posts = findFuzzyPosts(req.params.text, user);
     }
 });
