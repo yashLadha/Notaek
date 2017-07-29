@@ -15,7 +15,9 @@ var passport = require('passport');
 var dbUri = 'mongodb://localhost/note_app';
 
 mongoose.Promise = global.Promise;
-mongoose.connect(dbUri);
+mongoose.connect(dbUri, {
+  useMongoClient: true
+});
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -28,7 +30,11 @@ db.on('error', function(err) {
 
 var app = express();
 
-app.use(session({secret: 'yashladhaisstud'}));
+app.use(session({
+  secret: 'yashladhaisstud',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -37,8 +43,6 @@ app.use(flash());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
