@@ -15,9 +15,7 @@ var passport = require('passport');
 var dbUri = 'mongodb://localhost/note_app';
 
 mongoose.Promise = global.Promise;
-mongoose.connect(dbUri, {
-  useMongoClient: true
-});
+mongoose.connect(dbUri);
 
 var index = require('./routes/index');
 var users = require('./routes/users');

@@ -2,13 +2,13 @@
 
 function fuzzyAjaxCall(text) {
   $.ajax({
-    type: 'GET',
     url: '/notes/async/'+text,
-    success: function(msg) {
-      console.log('Success: ' + msg);
+    dataType: 'application/json',
+    complete: function(data) {
+      console.log(data);
     },
-    error: function(request, status, error) {
-      console.log(error);
+    success: function(data) {
+      console.log('Success');
     }
   });
 };

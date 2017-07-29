@@ -16,7 +16,6 @@ router.post('/createNote', function(req, res) {
     userInfo = req.user;
     postTitle = req.body.title;
     postContent = req.body.content;
-
     if (postTitle) {
       noteModel.find({author: userInfo._id, title: postTitle}, function(err, note) {
         if (err)
@@ -40,7 +39,9 @@ router.post('/createNote', function(req, res) {
   }
 });
 
-var findFuzzyPosts = function(text, user) {
+
+var ans = [];
+var fuzzyPost = function(text, user, callback) {
   noteModel.search({
     bool: {
       must: {
@@ -57,21 +58,22 @@ var findFuzzyPosts = function(text, user) {
   }, {hydrate: true}, function(err, result) {
     if (err) {
       console.log('Error finding data' + err);
+      callback(null);
     } else {
-      if (result.hits.hits) {
-        console.log(result.hits.hits);
-        return result.hits.hits;
-      }
+      callback(result.hits.hits);
     }
-    return null;
   });
 };
 
+// api callback for sending the fuzzy posts search results
 router.get('/async/:text', function(req, res) {
   user = req.user;
   if (user) {
     console.log('Request received: ' + req.params.text);
-    posts = findFuzzyPosts(req.params.text, user);
+    var text = req.params.text;
+    fuzzyPost(text, user, function(ans) {
+      res.json(ans);
+    });
   }
 });
 
