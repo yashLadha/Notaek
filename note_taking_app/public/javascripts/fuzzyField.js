@@ -1,5 +1,3 @@
-// Implement the async fuzzy search
-
 function fuzzyAjaxCall(text) {
   $.ajax({
     url: '/notes/async/'+text,
@@ -7,6 +5,7 @@ function fuzzyAjaxCall(text) {
     complete: function(data) {
       data = data.responseText;
       data = JSON.parse(data);
+      // Inflates the list from search query titles
       for (idx = 0; idx < data.length; ++idx) {
         console.log(data[idx].title);
         $("#search-results").append(
