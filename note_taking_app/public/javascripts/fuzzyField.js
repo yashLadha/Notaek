@@ -6,6 +6,7 @@ function fuzzyAjaxCall(text) {
       data = data.responseText;
       data = JSON.parse(data);
       // Inflates the list from search query titles
+      $('#search-results').empty();
       for (idx = 0; idx < data.length; ++idx) {
         console.log(data[idx].title);
         $("#search-results").append(
