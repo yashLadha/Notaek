@@ -5,7 +5,16 @@ function fuzzyAjaxCall(text) {
     url: '/notes/async/'+text,
     dataType: 'application/json',
     complete: function(data) {
-      console.log(data);
+      data = data.responseText;
+      data = JSON.parse(data);
+      for (idx = 0; idx < data.length; ++idx) {
+        console.log(data[idx].title);
+        $("#search-results").append(
+          $('<li>').css('color', 'white').text(
+            data[idx].title
+          )
+        );
+      }
     },
     success: function(data) {
       console.log('Success');
